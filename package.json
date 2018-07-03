@@ -1,0 +1,14 @@
+{
+  "name": "responsive",
+  "version": "1.0.0",
+  "description": "Set of responsive layout helpers",
+  "main": "responsive.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "responsive"
+  ],
+  "author": "Andrii Yevheniev <a.yevgeniev@gmail.com>",
+  "license": "MIT"
+}
