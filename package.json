@@ -1,5 +1,5 @@
 {
-  "name": "responsive",
+  "name": "@a-yevgeniev/responsive",
   "version": "1.0.0",
   "description": "Set of responsive layout helpers",
   "main": "responsive.js",
@@ -10,5 +10,9 @@
     "responsive"
   ],
   "author": "Andrii Yevheniev <a.yevgeniev@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "underscore": "^1.9.1"
+  }
 }
