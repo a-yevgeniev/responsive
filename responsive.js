@@ -1,12 +1,12 @@
 (function(root, factory) {
   if (typeof exports === 'object') {
-    module.exports = factory(require('jQuery'), require('underscore'));
+    module.exports = factory();
   } else if (typeof define === 'function' && define.amd) {
-    define(['jQuery', 'underscore'], factory);
+    define(factory);
   } else {
-    root.Responsive = factory(root.$, root._);
+    root.Responsive = factory();
   }
-}(this, function($, _) {
+}(this, function() {
   var layout = false,
     breakpoints = {
       'down-sm': 'only screen and (max-width: 767px)',
@@ -20,7 +20,22 @@
     },
     callbacksRes = [];
 
-  function isRule(breakpoint) {
+    function debounce(func, wait, immediate) {
+      var timeout;
+      return function() {
+        var context = this, args = arguments;
+        var later = function() {
+          timeout = null;
+          if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+      };
+    }
+
+    function isRule(breakpoint) {
     return window.matchMedia(breakpoints[breakpoint]).matches;
   }
 
@@ -54,14 +69,14 @@
   }
 
   function init() {
-    $(document).ready(callBr);
-    $(window).resize(function() {
+    window.addEventListener('load', callBr);
+    window.addEventListener('resize', function() {
       isRule(layout) || callBr();
     });
 
-    $(window).on('load', _.debounce(callRes, 250));
-    $(window).on('resize', _.debounce(callRes, 250));
-    $(window).on('orientationchange', _.debounce(callRes, 250));
+    window.addEventListener('load', debounce(callRes, 250));
+    window.addEventListener('resize', debounce(callRes, 250));
+    window.addEventListener('orientationchange', debounce(callRes, 250));
   }
 
   init();
